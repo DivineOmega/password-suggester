@@ -1,0 +1,14 @@
+{
+    "require": {
+        "php": ">=7.1",
+        "langleyfoxall/laravel-nist-password-rules": "^3.0",
+        "illuminate/filesystem": "^5.6",
+        "illuminate/translation": "^5.6",
+        "illuminate/validation": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "DivineOmega\\PasswordSuggester\\": "src/"
+        }
+    }
+}
