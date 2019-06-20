@@ -11,8 +11,8 @@ class NumbersStrategy implements SuggestionStrategyInterface
 
     public function __construct(int $numDigits = 8)
     {
-        if ($numDigits < 8) {
-            throw new InvalidArgumentException('Number of digits must be at least 8.');
+        if ($numDigits < 1) {
+            throw new InvalidArgumentException('Number of digits must be at least 1.');
         }
 
         $this->numDigits = $numDigits;

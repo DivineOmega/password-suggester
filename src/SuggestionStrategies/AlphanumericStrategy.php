@@ -7,13 +7,12 @@ use InvalidArgumentException;
 
 class AlphanumericStrategy implements SuggestionStrategyInterface
 {
-    private $numWords;
-    private $numCharacters = [];
+    private $numCharacters;
 
     public function __construct(int $numCharacters = 8)
     {
-        if ($numCharacters < 8) {
-            throw new InvalidArgumentException('Number of characters must be at least 8.');
+        if ($numCharacters < 1) {
+            throw new InvalidArgumentException('Number of characters must be at least 1.');
         }
 
         $this->numCharacters = $numCharacters;
