@@ -2,11 +2,21 @@
 
 namespace DivineOmega\PasswordSuggester;
 
+use DivineOmega\PasswordSuggester\Exceptions\MaxAttemptsExceededException;
 use DivineOmega\PasswordSuggester\Interfaces\SuggestionStrategyInterface;
 use LangleyFoxall\LaravelNISTPasswordRules\PasswordRules;
 
 class PasswordSuggester
 {
+    private $maxAttempts = 100;
+
+    /**
+     * Suggest a NIST rules compliant password based on the given password suggestion strategy.
+     *
+     * @param SuggestionStrategyInterface $suggestionStrategy
+     * @return string
+     * @throws MaxAttemptsExceededException
+     */
     public function suggest(SuggestionStrategyInterface $suggestionStrategy)
     {
         app()->bind('config', function() {
@@ -24,7 +34,15 @@ class PasswordSuggester
         $rules = PasswordRules::register(null);
         $validatorFactory = new ValidatorFactory();
 
+        $attempts = 0;
+
         do {
+            $attempts++;
+
+            if ($attempts > $this->maxAttempts) {
+                throw new MaxAttemptsExceededException();
+            }
+
             $password = $suggestionStrategy->suggest();
 
             $data = [
