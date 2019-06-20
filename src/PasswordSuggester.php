@@ -19,17 +19,7 @@ class PasswordSuggester
      */
     public function suggest(SuggestionStrategyInterface $suggestionStrategy)
     {
-        app()->bind('config', function() {
-            return new FakeClass();
-        });
-
-        app()->bind('path.storage', function() {
-            return __DIR__.'/../storage';
-        });
-
-        app()->bind('translator', function() {
-            return new FakeClass();
-        });
+        $this->performBinds();
 
         $rules = PasswordRules::register(null);
         $validatorFactory = new ValidatorFactory();
@@ -55,5 +45,23 @@ class PasswordSuggester
         } while ($validator->fails());
 
         return $password;
+    }
+
+    /**
+     * Perform app bindings required for Illuminate Validator instantiation.
+     */
+    private function performBinds()
+    {
+        app()->bind('config', function() {
+            return new FakeClass();
+        });
+
+        app()->bind('path.storage', function() {
+            return __DIR__.'/../storage';
+        });
+
+        app()->bind('translator', function() {
+            return new FakeClass();
+        });
     }
 }
