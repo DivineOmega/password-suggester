@@ -1,4 +1,6 @@
 {
+    "name": "divineomega/password-suggester",
+    "license": "LGPL-3.0-only",
     "require": {
         "php": ">=7.1",
         "langleyfoxall/laravel-nist-password-rules": "^3.0",
